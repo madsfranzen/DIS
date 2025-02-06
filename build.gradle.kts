@@ -52,5 +52,5 @@ tasks.named<JavaExec>("run") {
 }
 
 application {
-    mainClass.set("ScreenscraperUSD")
+    mainClass.set("opgave8.TestFlettesortering")
 }

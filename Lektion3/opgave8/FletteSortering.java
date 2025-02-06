@@ -17,7 +17,7 @@ public class FletteSortering {
 	}
 
 	// kombiner er realiseret ved fletteskabelonen
-	private void merge(List<Integer> list,int low, int middle, int high){
+	public void merge(List<Integer> list,int low, int middle, int high){
 		List<Integer> temp = new ArrayList<Integer>();
 		int i = low;
 		int j = middle+1;
