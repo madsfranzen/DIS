@@ -2,12 +2,12 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.URL;
-import java.util.Arrays;
 
 public class ScreenscraperUSD {
 	public static void main(String[] args) throws IOException {
 		System.out.println("SCREENSCRAPER USD\n");
 
+		@SuppressWarnings("deprecation")
 		URL url = new URL("https://valutakurser.dk");
 		InputStreamReader r = new InputStreamReader(url.openStream());
 		BufferedReader in = new BufferedReader(r);
