@@ -8,7 +8,7 @@ public class TestFlettesortering {
 
 	/**
 	 * @param args
-	 * @throws InterruptedException 
+	 * @throws InterruptedException
 	 */
 	public static void main(String[] args) throws InterruptedException {
 		List<Integer> list = new ArrayList<Integer>();
@@ -16,7 +16,6 @@ public class TestFlettesortering {
 		for (int i = 0; i < 1000000; i++) {
 			list.add(Math.abs(r.nextInt() % 10000));
 		}
-		;
 
 		// System.out.println(list);
 

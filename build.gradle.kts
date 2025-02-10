@@ -52,5 +52,5 @@ tasks.named<JavaExec>("run") {
 }
 
 application {
-    mainClass.set("opgave8.TestFlettesortering")
+    mainClass.set("opgave6.App")
 }
