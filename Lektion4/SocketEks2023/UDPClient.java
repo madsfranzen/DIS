@@ -1,4 +1,4 @@
-package eksBogenJava;
+package SocketEks2023;
 
 import java.io.*;
 import java.net.*;

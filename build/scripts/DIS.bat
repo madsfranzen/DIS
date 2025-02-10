@@ -74,7 +74,7 @@ set CLASSPATH=%APP_HOME%\lib\DIS.jar;%APP_HOME%\lib\guava-32.0.1-jre.jar;%APP_HO
 
 
 @rem Execute DIS
-"%JAVA_EXE%" %DEFAULT_JVM_OPTS% %JAVA_OPTS% %DIS_OPTS%  -classpath "%CLASSPATH%" opgave8.TestFlettesortering %*
+"%JAVA_EXE%" %DEFAULT_JVM_OPTS% %JAVA_OPTS% %DIS_OPTS%  -classpath "%CLASSPATH%" opgave6.App %*
 
 :end
 @rem End local scope for the variables with windows NT shell

@@ -212,7 +212,7 @@ DEFAULT_JVM_OPTS=""
 
 set -- \
         -classpath "$CLASSPATH" \
-        opgave8.TestFlettesortering \
+        opgave6.App \
         "$@"
 
 # Stop when "xargs" is not available.
