@@ -36,7 +36,7 @@ java {
 
 	sourceSets {
     main {
-        java.setSrcDirs(listOf("src/Lektion1", "src/Lektion2", "src/Lektion3", "src/Lektion4"))
+        java.setSrcDirs(listOf("Lektion4"))
     }
 }
 	
@@ -57,4 +57,4 @@ tasks.test {
 
 tasks.named<JavaExec>("run") { standardInput = System.`in` }
 
-application { mainClass.set("Lektion4.SocketEks2023.TCPServer") }
+application { mainClass.set("Lektion4.SocketEks2023.UDPServer") }
