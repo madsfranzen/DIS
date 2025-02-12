@@ -5,8 +5,7 @@ import java.net.*;
 
 class UDPClient {
 	public static void main(String args[]) throws Exception {
-		BufferedReader inFromUser = new BufferedReader(new InputStreamReader(
-				System.in));
+		BufferedReader inFromUser = new BufferedReader(new InputStreamReader(System.in));
 		DatagramSocket clientSocket = new DatagramSocket();
 		clientSocket.setBroadcast(true);
 		InetAddress IPAddress = InetAddress.getByName("255.255.255.255");
@@ -14,11 +13,9 @@ class UDPClient {
 		byte[] receiveData = new byte[1024];
 		String sentence = inFromUser.readLine();
 		sendData = sentence.getBytes();
-		DatagramPacket sendPacket = new DatagramPacket(sendData,
-				sendData.length, IPAddress, 9876);
+		DatagramPacket sendPacket = new DatagramPacket(sendData, sendData.length, IPAddress, 9876);
 		clientSocket.send(sendPacket);
-		DatagramPacket receivePacket = new DatagramPacket(receiveData,
-				receiveData.length);
+		DatagramPacket receivePacket = new DatagramPacket(receiveData, receiveData.length);
 		clientSocket.receive(receivePacket);
 
 		String modifiedSentence = new String(receivePacket.getData());

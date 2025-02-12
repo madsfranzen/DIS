@@ -1,4 +1,4 @@
-package SocketEks2023;
+package SocketThreading;
 
 import java.io.BufferedReader;
 import java.io.DataOutputStream;
@@ -12,11 +12,11 @@ public class TCPServer {
 	static String name;
 
 	public static void main(String[] args) throws Exception {
-		clearTerm();
-		System.out.println("Waiting for connection...");
 
 		try (ServerSocket welcomSocket = new ServerSocket(6789)) {
 			while (true) {
+				clearTerm();
+				System.out.println("Waiting for connection...");
 				Socket connectionSocket = welcomSocket.accept();
 				BufferedReader inFromClient = new BufferedReader(
 						new InputStreamReader(connectionSocket.getInputStream()));
@@ -28,6 +28,7 @@ public class TCPServer {
 
 				if (prefix.equals("Hello") && !name.isEmpty()) {
 					chat(connectionSocket, name, inFromClient);
+					System.out.println("Socket closed. Program still running. Awaiting new connection...");
 				} else
 					declineConnection(connectionSocket);
 			}
@@ -42,7 +43,8 @@ public class TCPServer {
 		connectionSocket.close();
 	}
 
-	public static void chat(Socket connectionSocket, String name, BufferedReader inFromClient) throws IOException {
+	public static void chat(Socket connectionSocket, String name, BufferedReader inFromClient)
+			throws IOException, InterruptedException {
 		clearTerm();
 		System.out.println(
 				connectionSocket.getRemoteSocketAddress() + " " + name + " wants to connect. Accept? (JA / NEJ)");
@@ -50,32 +52,48 @@ public class TCPServer {
 		DataOutputStream outToClient = new DataOutputStream(connectionSocket.getOutputStream());
 
 		BufferedReader inFromUser = new BufferedReader(new InputStreamReader(System.in));
-		String message;
 		String response = inFromUser.readLine();
 		outToClient.writeBytes(response + "\n");
 
 		if (response.equals("JA")) {
 			clearTerm();
 
-			while (true) {
-				message = inFromClient.readLine();
-
-				System.out.print(" -> " + name + ": ");
-				typewriterPrint(message, 50);
-
-				if (message.equals("END")) {
-					outToClient.flush();
-					outToClient.close();
-					connectionSocket.close();
-
-					System.out.println("Socket closed. Program still running. Awaiting new connection...");
-					return;
+			Thread threadWrite = new Thread(() -> {
+				String responseThread = "";
+				while (true) {
+					try {
+						responseThread = inFromUser.readLine();
+						outToClient.writeBytes(responseThread + "\n");
+					} catch (Exception e) {
+						e.printStackTrace();
+					}
+					System.out.println();
 				}
+			});
 
-				response = inFromUser.readLine();
-				outToClient.writeBytes(response + "\n");
-				System.out.println();
+			threadWrite.start();
+
+			String message = "";
+			boolean flag = true;
+			while (flag) {
+				try {
+					message = inFromClient.readLine();
+					System.out.print(" -> " + name + ": ");
+					typewriterPrint(message, 50);
+					if (message.equals("END")) {
+						System.out.println("MESSAGE BREAKEER");
+						flag = false;
+					}
+				} catch (Exception e) {
+					System.out.println("THREAD READ");
+					e.printStackTrace();
+					break;
+				}
 			}
+
+			connectionSocket.close();
+			outToClient.flush();
+			return;
 		}
 	}
 

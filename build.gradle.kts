@@ -57,4 +57,4 @@ tasks.test {
 
 tasks.named<JavaExec>("run") { standardInput = System.`in` }
 
-application { mainClass.set("Lektion4.SocketEks2023.UDPServer") }
+application { mainClass.set("SocketThreading.TCPClient") }

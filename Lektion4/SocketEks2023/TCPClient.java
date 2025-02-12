@@ -13,7 +13,7 @@ public class TCPClient {
 
 		String response;
 		String myName = "Mads Franzen";
-		String ipToConnect = "localhost";
+		String ipToConnect = "10.10.137.23";
 
 		BufferedReader inFromUser = new BufferedReader(new InputStreamReader(System.in));
 
@@ -55,7 +55,7 @@ public class TCPClient {
 			outToServer.writeBytes(message + '\n');
 			System.out.println();
 
-			if (message.equals("End")) {
+			if (message.equals("END")) {
 				return;
 			}
 
