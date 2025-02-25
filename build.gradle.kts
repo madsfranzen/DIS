@@ -36,7 +36,7 @@ java {
 
 	sourceSets {
     main {
-        java.setSrcDirs(listOf("Lektion4"))
+        java.setSrcDirs(listOf("Lektion7"))
     }
 }
 	
@@ -57,4 +57,4 @@ tasks.test {
 
 tasks.named<JavaExec>("run") { standardInput = System.`in` }
 
-application { mainClass.set("SocketThreading.TCPClient") }
+application { mainClass.set("TCPServer") }

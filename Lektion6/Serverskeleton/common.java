@@ -1,4 +1,4 @@
-package sock;
+package Serverskeleton;
 
 public class common {
 	String tekst;
@@ -15,6 +15,5 @@ public class common {
 	public void setTekst(String tekst) {
 		this.tekst = tekst;
 	}
-	
 
 }

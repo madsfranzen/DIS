@@ -81,7 +81,7 @@ public class TCPServer {
 					System.out.print(" -> " + name + ": ");
 					typewriterPrint(message, 50);
 					if (message.equals("END")) {
-						System.out.println("MESSAGE BREAKEER");
+						System.out.println("MESSAGE BREAKER");
 						flag = false;
 					}
 				} catch (Exception e) {
