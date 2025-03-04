@@ -1,4 +1,4 @@
-package Serverskeleton;
+package Opgave13;
 
 import java.net.*;
 import java.io.*;
@@ -12,19 +12,31 @@ public class ServerThread extends Thread {
 
 	public void run() {
 		try {
-			BufferedReader inFromClient = new BufferedReader(new InputStreamReader(connSocket.getInputStream()));
 			DataOutputStream outToClient = new DataOutputStream(connSocket.getOutputStream());
+
+			BufferedReader inFromClient = new BufferedReader(new InputStreamReader(connSocket.getInputStream()));
+			String clientRequest = inFromClient.readLine();
+			System.out.println("Received from client: " + clientRequest);
 
 			byte[] responseBody = read("/Users/madsfranzen/Documents/DIS/Lektion6/Serverskeleton/myWEB/test2.html");
 			String returnString = "HTTP/1.1 200 OK\r\n";
 			String contentType = "Content-Type: text/html\r\n";
+			String contentLength = "Content-Length: " + responseBody.length + "\r\n";
 			String close = "Connection: Close\r\n";
 
-			outToClient.writeBytes(returnString + contentType + close + "\r\n");
-			outToClient.write(responseBody + "\n");
+			outToClient.writeBytes(returnString + contentType + contentLength + close + "\r\n");
+			outToClient.write(responseBody);
+			outToClient.flush();
+			System.out.println("Response sent to client");
 
 		} catch (IOException e) {
 			e.printStackTrace();
+		} finally {
+			try {
+				connSocket.close();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
 		}
 	}
 
@@ -51,7 +63,9 @@ public class ServerThread extends Thread {
 				System.out.println("Num bytes read: " + totalBytesRead);
 			} finally {
 				System.out.println("Closing input stream.");
-				input.close();
+				if (input != null) {
+					input.close();
+				}
 			}
 		} catch (FileNotFoundException ex) {
 			throw ex;
@@ -59,7 +73,5 @@ public class ServerThread extends Thread {
 			ex.printStackTrace();
 		}
 		return result;
-
 	}
-
 }
