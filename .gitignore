@@ -1,0 +1,17 @@
+# Gradle
+.gradle/
+build/
+gradle-app.setting
+!gradle-wrapper.jar
+.gradletasknamecache
+**/build/
+gradle.properties
+
+# VS Code
+.vscode/
+.settings/
+.classpath
+.project
+.factorypath
+*.code-workspace
+.history/

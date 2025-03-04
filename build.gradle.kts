@@ -17,6 +17,8 @@ dependencies {
     implementation("org.openjfx:javafx-media:23")
     implementation("org.openjfx:javafx-swing:23")
     implementation("org.openjfx:javafx-web:23")
+    implementation(files("libs/json-20140107.jar"))
+    implementation(files("libs/org.eclipse.paho.client.mqttv3-1.2.0.jar"))
 }
 
 javafx {
@@ -36,7 +38,7 @@ java {
 
 	sourceSets {
     main {
-        java.setSrcDirs(listOf("Lektion7"))
+        java.setSrcDirs(listOf("IOT_Workshop"))
     }
 }
 	
@@ -57,4 +59,4 @@ tasks.test {
 
 tasks.named<JavaExec>("run") { standardInput = System.`in` }
 
-application { mainClass.set("TCPServer") }
+application { mainClass.set("App") }
