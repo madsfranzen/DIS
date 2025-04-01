@@ -19,6 +19,7 @@ dependencies {
     implementation("org.openjfx:javafx-web:23")
     implementation(files("libs/json-20140107.jar"))
     implementation(files("libs/org.eclipse.paho.client.mqttv3-1.2.0.jar"))
+    implementation("com.microsoft.sqlserver:mssql-jdbc:12.10.0.jre11")
 }
 
 javafx {
@@ -38,7 +39,7 @@ java {
 
 	sourceSets {
     main {
-        java.setSrcDirs(listOf("IOT_Workshop"))
+        java.setSrcDirs(listOf("Lektion14"))
     }
 }
 	
@@ -57,6 +58,12 @@ tasks.test {
     testLogging { showStandardStreams = true }
 }
 
-tasks.named<JavaExec>("run") { standardInput = System.`in` }
+tasks.named<JavaExec>("run") {
+    standardInput = System.`in`
+    enableAssertions = true
+    workingDir = project.projectDir
+    jvmArgs = listOf("-Djava.awt.headless=true")
+    systemProperty("java.awt.headless", "true")
+}
 
-application { mainClass.set("App") }
+application { mainClass.set("transactions") }
