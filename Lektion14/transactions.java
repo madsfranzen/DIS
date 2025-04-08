@@ -15,9 +15,11 @@ public class transactions {
             con = DriverManager.getConnection("jdbc:sqlserver://localhost\\:1433;" +
                     "databaseName=BankDB;user=sa;password=Password123;encrypt=false;trustServerCertificate=true;");
 
+            con.setTransactionIsolation(Connection.TRANSACTION_READ_COMMITTED);
+
             printAllAccounts();
 
-            if (makeTransaction(1001, 1002, 5000)) {
+            if (makeTransaction(1002, 1001, 1000)) {
                 printAllAccounts();
             } else {
                 System.out.println("❌ Transaction failed!");
@@ -45,7 +47,7 @@ public class transactions {
     public static boolean makeTransaction(int fromAccount, int toAccount, double amountToTransfer) {
         try {
 
-            con.setTransactionIsolation(Connection.TRANSACTION_SERIALIZABLE);
+            con.setTransactionIsolation(Connection.TRANSACTION_REPEATABLE_READ);
             con.setAutoCommit(false);
 
             System.out.println("\n🚀 Starting transaction: " + amountToTransfer + " from account " + fromAccount
@@ -56,13 +58,13 @@ public class transactions {
             int toAccountBalance = 0;
 
             System.out.println("📊 Checking source account " + fromAccount);
-            ResultSet res = stmt.executeQuery("SELECT * FROM konto WHERE kontonr = " + fromAccount);
+            ResultSet res = stmt.executeQuery("SELECT * FROM konto WITH (UPDLOCK) WHERE kontonr = " + fromAccount);
             if (!res.next()) {
                 System.out.println("❌ Source account not found!");
                 con.rollback();
                 return false;
             } else {
-                ResultSet res2 = stmt.executeQuery("SELECT saldo FROM konto WHERE kontonr = " + fromAccount);
+                ResultSet res2 = stmt.executeQuery("SELECT saldo FROM konto WITH (UPDLOCK) WHERE kontonr = " + fromAccount);
                 res2.next();
                 fromAccountBalance = res2.getInt(1);
                 System.out.println("💰 Source account balance: " + fromAccountBalance);

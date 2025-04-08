@@ -39,7 +39,7 @@ java {
 
 	sourceSets {
     main {
-        java.setSrcDirs(listOf("Lektion14"))
+        java.setSrcDirs(listOf("Lektion15"))
     }
 }
 	
@@ -66,4 +66,4 @@ tasks.named<JavaExec>("run") {
     systemProperty("java.awt.headless", "true")
 }
 
-application { mainClass.set("transactions") }
+application { mainClass.set("transactionsVersion") }

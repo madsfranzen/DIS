@@ -27,3 +27,6 @@ insert into konto values(1001,100,'12')
 insert into konto values(1002,1000,'12')
 insert into konto values(1003,10000,'13')
 insert into konto values(1004,100000,'14')
+
+select * from bankkunde
+select * from konto
