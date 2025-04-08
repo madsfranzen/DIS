@@ -39,7 +39,7 @@ java {
 
 	sourceSets {
     main {
-        java.setSrcDirs(listOf("Lektion15"))
+        java.setSrcDirs(listOf("Lektion16"))
     }
 }
 	
